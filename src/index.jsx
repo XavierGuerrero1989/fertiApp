@@ -1,17 +1,31 @@
 import { useFonts } from 'expo-font';
-import { useState } from 'react';
-import { View } from 'react-native';
 
-import { Header } from './components';
-import { Game, StartGame } from './screens/index';
+import { View, ActivityIndicator } from 'react-native';
+
+import { theme } from './constantes';
 import { styles } from './styles';
-import { theme } from './constants';
+import Welcome from './pantallas/welcome';
+import { useState } from 'react';
+import { RemedioNuevo } from './pantallas';
 
 
 
 
 export default function App() {
 
+
+  const [remediosViejos, setRemediosViejos] = useState(false);
+  const [nuevoForm, setNuevoForm] = useState(false);
+
+  const formSetter = (estado) => {
+    setNuevoForm(estado);
+  }
+
+  const remedioSetter = (estado) => {
+    setRemediosViejos(estado);
+  }
+
+  const Content = () => (nuevoForm ? <RemedioNuevo formSetter={formSetter} remedioSetter={remedioSetter}  /> : <Welcome formSetter={formSetter} remedioSetter={remedioSetter} />)
   
 
   const [loaded] = useFonts({
@@ -22,12 +36,14 @@ export default function App() {
     'Comfortaa-Bold': require('../assets/fonts/Comfortaa-Bold.ttf'),
   });
 
+  if(!loaded) {
+    return <ActivityIndicator size='large' color={theme.colores.oscuro} />;
+  }
   
-
-
   return (
     <View style={styles.container}>
-      <Text>hello</Text>
+      <Content />
     </View>
   );
 }
+

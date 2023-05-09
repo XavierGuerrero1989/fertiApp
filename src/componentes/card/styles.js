@@ -1,11 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-import { theme } from '../../constants';
+import { theme } from '../../constantes';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.white,
-    shadowColor: theme.colors.black,
+    
     shadowOffset: {
       width: 0,
       height: 1,
