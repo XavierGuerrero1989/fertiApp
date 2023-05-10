@@ -67,6 +67,13 @@ const RemedioNuevo = ({ remedioSetter, formSetter }) => {
     setShowDatePicker(true);
   };
 
+  const onPressReset = () => {
+    setMedicamento('')
+    setDosis('')
+    setTime(null)
+    setDate(new Date())
+  }
+ 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.formContainer}>
@@ -78,8 +85,8 @@ const RemedioNuevo = ({ remedioSetter, formSetter }) => {
             autoCapitalize="none"
             autoCorrect={false}
             blurOnSubmit
-            // OnchangeText={(medicamento) => setText(medicamento)}
-            // value={ medicamento }
+            onChangeText={(medicamento) => setMedicamento(medicamento)}
+            value={ medicamento }
           />
           <TextInput
             placeholder="Dosis"
@@ -88,8 +95,8 @@ const RemedioNuevo = ({ remedioSetter, formSetter }) => {
             autoCapitalize="none"
             autoCorrect={false}
             blurOnSubmit
-            // OnchangeText={(dosis) => setText(dosis)}
-            // value={ dosis }
+            onChangeText={(dosis) => setDosis(dosis)}
+            value={ dosis }
           />
 
           <TextInput
@@ -137,7 +144,7 @@ const RemedioNuevo = ({ remedioSetter, formSetter }) => {
             />
             <Button
               title="Reset"
-              onPress={() => {}}
+              onPress={onPressReset}
               color={theme.colores.primario}
             />
             <Button
