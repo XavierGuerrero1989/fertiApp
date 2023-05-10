@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { theme } from '../../constantes';
+
 export const styles = StyleSheet.create({
   
     formContainer: {
@@ -13,7 +15,9 @@ export const styles = StyleSheet.create({
 
     },
     input: {
-        padding: 15,
+        margin: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.colores.primario
     },
     formButton: {
         flexDirection: 'row',

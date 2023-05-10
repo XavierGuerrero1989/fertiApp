@@ -1,7 +1,6 @@
 {
   "name": "fertiapp",
   "version": "1.0.0",
-  
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -9,6 +8,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^6.7.3",
     "expo": "~48.0.15",
     "expo-app-loading": "^2.1.1",
     "expo-font": "^11.1.1",

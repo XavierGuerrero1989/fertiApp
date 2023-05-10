@@ -3,10 +3,12 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   
     container: {
-        alignItems: 'center',
+       justifyContent: 'center',
+       alignItems: 'center',
     },
     bienvenidaContainer: {
-        alignItems: 'center',
+        justifyContent: 'center',
+       alignItems: 'center',
     },
     bienvenidaTitulo: {
         fontFamily:'Comfortaa-Bold',
