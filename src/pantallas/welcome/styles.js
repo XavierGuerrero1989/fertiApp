@@ -3,12 +3,14 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   
     container: {
+        flex: 1,
        justifyContent: 'center',
        alignItems: 'center',
     },
     bienvenidaContainer: {
         justifyContent: 'center',
        alignItems: 'center',
+       
     },
     bienvenidaTitulo: {
         fontFamily:'Comfortaa-Bold',
@@ -22,7 +24,11 @@ export const styles = StyleSheet.create({
     },
     contenedorBotones: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
     },
+    imagen: {
+        height:65,
+        width: 180,
+    }
 });
 

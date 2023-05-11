@@ -7,26 +7,13 @@ import { styles } from './styles';
 import Welcome from './pantallas/welcome';
 import { useState } from 'react';
 import { RemedioNuevo } from './pantallas';
+import Navigation from './navigation';
 
 
 
 
 export default function App() {
 
-
-  const [remediosViejos, setRemediosViejos] = useState(false);
-  const [nuevoForm, setNuevoForm] = useState(false);
-
-  const formSetter = (estado) => {
-    setNuevoForm(estado);
-  }
-
-  const remedioSetter = (estado) => {
-    setRemediosViejos(estado);
-  }
-
-  const Content = () => (nuevoForm ? <RemedioNuevo formSetter={formSetter} remedioSetter={remedioSetter}  /> : <Welcome formSetter={formSetter} remedioSetter={remedioSetter} />)
-  
 
   const [loaded] = useFonts({
     'Comfortaa': require('../assets/fonts/Comfortaa-Regular.ttf'),
@@ -41,9 +28,9 @@ export default function App() {
   }
   
   return (
-    <View style={styles.container}>
-      <Content />
-    </View>
+    
+      <Navigation />
+    
   );
 }
 

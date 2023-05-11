@@ -13,7 +13,7 @@ import { styles } from "./styles";
 import { theme } from "../../constantes/theme";
 import { Card } from "../../componentes";
 
-const RemedioNuevo = ({ remedioSetter, formSetter }) => {
+const RemedioNuevo = () => {
   const [medicamento, setMedicamento] = useState("");
   const [dosis, setDosis] = useState("");
 
@@ -23,11 +23,7 @@ const RemedioNuevo = ({ remedioSetter, formSetter }) => {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const onPressBack = () => {
-    formSetter(false);
-    remedioSetter(false);
-  };
-
+  
   const openTimePicker = async () => {
     try {
       const { action, hour, minute } = await TimePickerAndroid.open({
@@ -103,6 +99,7 @@ const RemedioNuevo = ({ remedioSetter, formSetter }) => {
             value={date.toLocaleDateString()}
             placeholder="Selecciona fecha de inicio"
             onFocus={openDatePicker}
+            style={styles.input}
           />
           <Button
             title="Selecciona fecha de inicio"
@@ -122,6 +119,7 @@ const RemedioNuevo = ({ remedioSetter, formSetter }) => {
             value={time ? time.toLocaleTimeString() : ""}
             placeholder="Selecciona Hora de inicio"
             onFocus={openTimePicker}
+            style={styles.input}
           />
           <Button
             title="Selecciona Hora de inicio"
@@ -138,13 +136,8 @@ const RemedioNuevo = ({ remedioSetter, formSetter }) => {
           )}
           <View style={styles.formButton}>
             <Button
-              title="Back"
-              onPress={onPressBack}
-              color={theme.colores.oscuro}
-            />
-            <Button
               title="Reset"
-              onPress={onPressReset}
+              onPress={(onPressReset)}
               color={theme.colores.primario}
             />
             <Button
