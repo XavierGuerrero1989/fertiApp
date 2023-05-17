@@ -12,8 +12,15 @@ export const styles = StyleSheet.create({
         fontFamily: 'Comfortaa-Medium',
         fontSize: 22,
     },
-    inputContainer: {
 
+    formMiniTitle: {
+        fontFamily: 'Comfortaa-Bold',
+        fontSize: 16,
+        alignSelf: 'center',
+        color: theme.colores.oscuro
+    },
+    inputContainer: {
+        
     },
     input: {
         height: 40,

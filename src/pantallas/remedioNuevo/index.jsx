@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   TouchableWithoutFeedback,
   View,
@@ -6,149 +6,184 @@ import {
   Button,
   TextInput,
   Keyboard,
+  ScrollView,
 } from "react-native";
-import DatePicker from "@react-native-community/datetimepicker";
-import DateTimePicker from "@react-native-community/datetimepicker";
+
 import { styles } from "./styles";
 import { theme } from "../../constantes/theme";
 import { Card } from "../../componentes";
+import RemedioList from "../remedioList";
+import { useNavigation } from "@react-navigation/native";
 
 const RemedioNuevo = () => {
-  const [medicamento, setMedicamento] = useState("");
-  const [dosis, setDosis] = useState("");
+  const navigation = useNavigation();
 
-  const [time, setTime] = useState(null);
-  const [showPicker, setShowPicker] = useState(false);
+  const [tratamiento, setTratamiento] = useState([]);
 
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [medicamentoFHS, setMedicamentoFHS] = useState("");
+  const [dosisFHS, setDosisFHS] = useState("");
+  const [dateFHS, setDateFHS] = useState("");
+  const [timeFHS, setTimeFHS] = useState(null);
 
-  
-  const openTimePicker = async () => {
-    try {
-      const { action, hour, minute } = await TimePickerAndroid.open({
-        hour: 12,
-        minute: 0,
-        is24Hour: false,
-      });
-      if (action !== TimePickerAndroid.dismissedAction) {
-        const selectedTime = new Date();
-        selectedTime.setHours(hour);
-        selectedTime.setMinutes(minute);
-        setTime(selectedTime);
-      }
-    } catch (error) {
-      console.warn("Cannot open time picker", error);
-    }
-  };
+  const [medicamentoHSM, setMedicamentoHSM] = useState("");
+  const [dosisHSM, setDosisHSM] = useState("");
+  const [dateHSM, setDateHSM] = useState("");
+  const [timeHSM, setTimeHSM] = useState(null);
 
-  const onTimeChange = (event, selectedTime) => {
-    if (selectedTime) {
-      setTime(selectedTime);
-    }
-    setShowPicker(false);
-  };
-
-  const openTimeSelector = () => {
-    setShowPicker(true);
-  };
-
-  const onDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShowDatePicker(false);
-    setDate(currentDate);
-  };
-
-  const openDatePicker = () => {
-    setShowDatePicker(true);
-  };
 
   const onPressReset = () => {
-    setMedicamento('')
-    setDosis('')
-    setTime(null)
-    setDate(new Date())
-  }
- 
+    setMedicamentoFHS("");
+    setDosisFHS("");
+    setTimeFHS(null);
+    setDateFHS("");
+    setMedicamentoHSM("");
+    setDosisHSM("");
+    setTimeHSM(null);
+    setDateHSM("");
+  };
+
+  const handleConfirm = () => {
+    const fhsTreatment = {
+      category: "FHS",
+      medicamento: medicamentoFHS,
+      dosis: dosisFHS,
+      date: dateFHS,
+      time: timeFHS,
+    };
+
+    const hsmTreatment = {
+      category: "HSM",
+      medicamento: medicamentoHSM,
+      dosis: dosisHSM,
+      date: dateHSM,
+      time: timeHSM,
+    };
+
+    const newTratamiento = [fhsTreatment, hsmTreatment];
+    setTratamiento([...tratamiento, ...newTratamiento]);
+
+    
+
+    setMedicamentoFHS("");
+    setDosisFHS("");
+    setTimeFHS(null);
+    setDateFHS("");
+    setMedicamentoHSM("");
+    setDosisHSM("");
+    setTimeHSM(null);
+    setDateHSM("");
+
+    navigation.navigate("RemedioList", { tratamiento: newTratamiento });
+  };
+
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.formContainer}>
-        <Text style={styles.formTitle}>Ingrese los datos del medicamento.</Text>
-        <Card style={styles.inputContainer}>
-          <TextInput
-            placeholder="Medicamento"
-            style={styles.input}
-            autoCapitalize="none"
-            autoCorrect={false}
-            blurOnSubmit
-            onChangeText={(medicamento) => setMedicamento(medicamento)}
-            value={ medicamento }
-          />
-          <TextInput
-            placeholder="Dosis"
-            keyboardType="numeric"
-            style={styles.input}
-            autoCapitalize="none"
-            autoCorrect={false}
-            blurOnSubmit
-            onChangeText={(dosis) => setDosis(dosis)}
-            value={ dosis }
-          />
+    <ScrollView>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.formContainer}>
+          <Text style={styles.formTitle}>
+            Ingrese los datos del medicamento.
+          </Text>
+          <Card style={styles.inputContainer}>
+            <Text style={styles.formMiniTitle}>FSH</Text>
+            <TextInput
+              placeholder="Medicamento"
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit
+              onChangeText={setMedicamentoFHS}
+              value={medicamentoFHS}
+            />
+            <TextInput
+              placeholder="Dosis"
+              keyboardType="numeric"
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit
+              onChangeText={setDosisFHS}
+              value={dosisFHS}
+            />
+            
+            <TextInput
+              placeholder="Fecha FHS (DD/MM/AAAA)"
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit
+              onChangeText={(dateFHS) => setDateFHS(dateFHS)}
+              value={dateFHS}
+            />
 
-          <TextInput
-            value={date.toLocaleDateString()}
-            placeholder="Selecciona fecha de inicio"
-            onFocus={openDatePicker}
-            style={styles.input}
-          />
-          <Button
-            title="Selecciona fecha de inicio"
-            color={theme.colores.primario}
-            onPress={openDatePicker}
-          />
-          {showDatePicker && (
-            <DatePicker
-              value={date}
-              mode="date"
-              display="default"
-              onChange={onDateChange}
+            <TextInput
+              placeholder="Hora FHS (HH:MM)"
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit
+              onChangeText={(timeFHS) => setTimeFHS(timeFHS)}
+              value={timeFHS}
             />
-          )}
+            
 
-          <TextInput
-            value={time ? time.toLocaleTimeString() : ""}
-            placeholder="Selecciona Hora de inicio"
-            onFocus={openTimePicker}
-            style={styles.input}
-          />
-          <Button
-            title="Selecciona Hora de inicio"
-            color={theme.colores.primario}
-            onPress={openTimeSelector}
-          />
-          {showPicker && (
-            <DateTimePicker
-              value={time || new Date()}
-              mode="time"
-              display="default"
-              onChange={onTimeChange}
+            <Text style={styles.formMiniTitle}>HSM</Text>
+            <TextInput
+              placeholder="Medicamento"
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit
+              onChangeText={setMedicamentoHSM}
+              value={medicamentoHSM}
             />
-          )}
-          <View style={styles.formButton}>
-            <Button
-              title="Reset"
-              onPress={(onPressReset)}
-              color={theme.colores.primario}
+            <TextInput
+              placeholder="Dosis"
+              keyboardType="numeric"
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit
+              onChangeText={setDosisHSM}
+              value={dosisHSM}
             />
-            <Button
-              title="Confirm"
-              onPress={() => {}}
-              color={theme.colores.oscuro}
+
+            <TextInput
+              placeholder="Fecha HSM (DD/MM/AAAA)"
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit
+              onChangeText={(dateHSM) => setDateHSM(dateHSM)}
+              value={dateHSM}
             />
-          </View>
-        </Card>
-      </View>
-    </TouchableWithoutFeedback>
+
+            <TextInput
+              placeholder="Hora HSM (HH:MM)"
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit
+              onChangeText={(timeHSM) => setTimeHSM(timeHSM)}
+              value={timeHSM}
+            />
+
+            
+            <View style={styles.formButton}>
+              <Button
+                title="Reset"
+                onPress={onPressReset}
+                color={theme.colores.primario}
+              />
+              <Button
+                title="Confirm"
+                onPress={handleConfirm}
+                color={theme.colores.oscuro}
+              />
+            </View>
+          </Card>
+        </View>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   );
 };
 
