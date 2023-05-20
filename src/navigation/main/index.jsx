@@ -1,14 +1,38 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RemedioList, RemedioNuevo, Welcome } from "../../pantallas";
+import { theme } from "../../constantes";
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="Welcome">
-            <Stack.Screen name="Welcome" component={Welcome}/>
-            <Stack.Screen name="RemedioNuevo" component={RemedioNuevo}/>
-            <Stack.Screen name="RemedioList" component={RemedioList}/>
+        <Stack.Navigator initialRouteName="Welcome"
+        screenOptions={{
+            headerStyle: {
+                backgroundColor: theme.colores.primario
+            },
+            headerTintColor: theme.colores.oscuro,
+            headerTitleStyle: {
+                fontFamily: "Comfortaa-Bold",
+                color: "white",
+            },
+        }}
+        >
+            <Stack.Screen name="Welcome" component={Welcome}
+                options={({ route }) => ({
+                    title: "Bienvenida",
+                }) }
+            />
+            <Stack.Screen name="RemedioNuevo" component={RemedioNuevo}
+                options={({ route }) => ({
+                    title: "Inicio Nuevo Tratamiento",
+                }) }
+            />
+            <Stack.Screen name="RemedioList" component={RemedioList}
+                options={({ route }) => ({
+                    title: "Home: Lista de Medicación Activa",
+                }) }
+            />
         </Stack.Navigator>
     );
 };
