@@ -1,7 +1,10 @@
+import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MainNavigator from "../main";
 import ProxAplicacionNavigator  from "../proximasAplicaciones";
 import InfoGeneralNavigator from "../infoGral";
+import { Theme } from "@react-navigation/native";
+import { theme } from "../../constantes";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -11,21 +14,41 @@ const TabNavigator = () => {
         initialRouteName="MainTab"
         screenOptions={{
             headerShown: false,
+            tabBarLabelStyle: {
+                fontFamily: "Comfortaa-SemiBold",
+                fontSize: 12,
+            },
+            tabBarStyle: {
+                backgroundColor: theme.colores.grey
+            },
+            tabBarActiveTintColor: theme.colores.oscuro,
+            tabBarIconStyle: {
+                fontSize: 24,
+            }
         }}
         >
             <BottomTab.Screen name='MainTab' component={MainNavigator} 
                 options={{
-                    tabBarLabel: "Tratamiento"
+                    tabBarLabel: "Tratamiento",
+                    tabBarIcon: ({ focused, color, size }) => (
+                        <Ionicons name="home-outline" size={24}/>
+                    ), 
                 }}
             />
             <BottomTab.Screen name='AlarmTab' component={ProxAplicacionNavigator}
                 options={{
-                    tabBarLabel: "Alarmas"
+                    tabBarLabel: "Alarmas",
+                    tabBarIcon: ({ focused, color, size }) => (
+                        <Ionicons name="alarm-outline" size={24}/>
+                    ), 
                 }}
             />
             <BottomTab.Screen name='InfoTab' component={InfoGeneralNavigator} 
                 options={{
-                    tabBarLabel: "Info Gral"
+                    tabBarLabel: "Info Gral",
+                    tabBarIcon: ({ focused, color, size }) => (
+                        <Ionicons name="information-circle-outline" size={24}/>
+                    ), 
                 }}
             />
         </BottomTab.Navigator>
