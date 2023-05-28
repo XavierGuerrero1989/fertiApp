@@ -1,26 +1,30 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
+import { useSelector } from "react-redux";
 import { styles } from "./styles";
 import { Card } from "../../componentes";
 
-const RemedioList = ({ route }) => {
-  const tratamientoParsed = route.params?.tratamiento || [];
+const RemedioList = () => {
+  const tratamientosActive = useSelector((state) => state.tratamientos);
 
   const renderItem = ({ item }) => (
     <Card style={styles.ListContainer}>
-        <Text style={styles.ItemTitle}>Categoria: {item.category}</Text>
-        <Text style={styles.ItemMedicamento}>Medicamento: {item.medicamento}</Text>
-        <Text style={styles.ItemDosis}>Dosis: {item.dosis}</Text>
-        <Text style={styles.ItemDate}>Fecha de Inicio: {item.date}</Text>
-        <Text style={styles.ItemTime}>Hora de Aplicacion: {item.time}</Text>
+      <Text style={styles.ItemMedicamento}>Medicamento F: {item.medicamentoF}</Text>
+      <Text style={styles.ItemDosis}>Dosis F: {item.dosisF}</Text>
+      <Text style={styles.ItemDate}>Fecha de Inicio F: {item.dateF}</Text>
+      <Text style={styles.ItemTime}>Hora de Aplicacion F: {item.timeF}</Text>
+      <Text style={styles.ItemMedicamento}>Medicamento H: {item.medicamentoH}</Text>
+      <Text style={styles.ItemDosis}>Dosis H: {item.dosisH}</Text>
+      <Text style={styles.ItemDate}>Fecha de Inicio H: {item.dateH}</Text>
+      <Text style={styles.ItemTime}>Hora de Aplicacion H: {item.timeH}</Text>
     </Card>
   );
 
   return (
     <View style={styles.container}>
-      {tratamientoParsed.length > 0 ? (
+      {tratamientosActive.length > 0 ? (
         <FlatList
-          data={tratamientoParsed}
+          data={tratamientosActive}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
         />

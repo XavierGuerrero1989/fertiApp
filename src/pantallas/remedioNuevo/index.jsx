@@ -8,7 +8,8 @@ import {
   Keyboard,
   ScrollView,
 } from "react-native";
-
+import { newTratamiento } from "../../store/actions/formFiller.action";
+import { useDispatch } from "react-redux";
 import { styles } from "./styles";
 import { theme } from "../../constantes/theme";
 import { Card } from "../../componentes";
@@ -17,7 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const RemedioNuevo = () => {
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const [tratamiento, setTratamiento] = useState([]);
 
   const [medicamentoFHS, setMedicamentoFHS] = useState("");
@@ -43,27 +44,22 @@ const RemedioNuevo = () => {
   };
 
   const handleConfirm = () => {
-    const fhsTreatment = {
-      category: "FHS",
-      medicamento: medicamentoFHS,
-      dosis: dosisFHS,
-      date: dateFHS,
-      time: timeFHS,
+    const newTratamientoData = {
+      medicamentoF: medicamentoFHS,
+      dosisF: dosisFHS,
+      dateF: dateFHS,
+      timeF: timeFHS,
+      medicamentoH: medicamentoHSM,
+      dosisH: dosisHSM,
+      dateH: dateHSM,
+      timeH: timeHSM,
     };
-
-    const hsmTreatment = {
-      category: "HSM",
-      medicamento: medicamentoHSM,
-      dosis: dosisHSM,
-      date: dateHSM,
-      time: timeHSM,
-    };
-
-    const newTratamiento = [fhsTreatment, hsmTreatment];
-    setTratamiento([...tratamiento, ...newTratamiento]);
-
-    
-
+  
+    setTratamiento([...tratamiento, newTratamientoData]);
+  
+    dispatch(newTratamiento(newTratamientoData));
+  
+   
     setMedicamentoFHS("");
     setDosisFHS("");
     setTimeFHS(null);
@@ -72,8 +68,8 @@ const RemedioNuevo = () => {
     setDosisHSM("");
     setTimeHSM(null);
     setDateHSM("");
-
-    navigation.navigate("RemedioList", { tratamiento: newTratamiento });
+  
+    navigation.navigate("RemedioList", { tratamiento: newTratamientoData });
   };
 
   return (

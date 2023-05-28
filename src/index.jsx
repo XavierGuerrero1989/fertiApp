@@ -8,8 +8,8 @@ import Welcome from './pantallas/welcome';
 import { useState } from 'react';
 import { RemedioNuevo } from './pantallas';
 import Navigation from './navigation';
-
-
+import { Provider } from 'react-redux';
+import store from './store/index';
 
 
 export default function App() {
@@ -28,9 +28,9 @@ export default function App() {
   }
   
   return (
-    
+    <Provider store={store}>
       <Navigation />
-    
+    </Provider> 
   );
 }
 
