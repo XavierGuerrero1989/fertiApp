@@ -6,7 +6,7 @@ const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="Welcome"
+        <Stack.Navigator initialRouteName="RemedioList"
         screenOptions={{
             headerStyle: {
                 backgroundColor: theme.colores.primario
@@ -30,7 +30,7 @@ const MainNavigator = () => {
             />
             <Stack.Screen name="RemedioList" component={RemedioList}
                 options={({ route }) => ({
-                    title: "Home: Lista de Medicación Activa",
+                    title: "Medicación Activa",
                 }) }
             />
         </Stack.Navigator>

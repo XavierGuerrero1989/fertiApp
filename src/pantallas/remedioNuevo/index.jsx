@@ -8,6 +8,7 @@ import {
   Keyboard,
   ScrollView,
 } from "react-native";
+import {Picker} from '@react-native-picker/picker';
 import { newTratamiento } from "../../store/actions/formFiller.action";
 import { useDispatch } from "react-redux";
 import { styles } from "./styles";
@@ -15,44 +16,48 @@ import { theme } from "../../constantes/theme";
 import { Card } from "../../componentes";
 import RemedioList from "../remedioList";
 import { useNavigation } from "@react-navigation/native";
+import { v4 as uuidv4 } from "uuid";
+import { useRef } from "react";
 
 const RemedioNuevo = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [tratamiento, setTratamiento] = useState([]);
 
-  const [medicamentoFHS, setMedicamentoFHS] = useState("");
-  const [dosisFHS, setDosisFHS] = useState("");
-  const [dateFHS, setDateFHS] = useState("");
-  const [timeFHS, setTimeFHS] = useState(null);
+  const [medicamento, setMedicamento] = useState("");
+  const [dosis, setDosis] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState(null);
 
-  const [medicamentoHSM, setMedicamentoHSM] = useState("");
-  const [dosisHSM, setDosisHSM] = useState("");
-  const [dateHSM, setDateHSM] = useState("");
-  const [timeHSM, setTimeHSM] = useState(null);
+  const pickerRef = useRef();
+
+  function open() {
+    pickerRef.current.focus();
+  }
+  
+  function close() {
+    pickerRef.current.blur();
+  }
+  
 
 
   const onPressReset = () => {
-    setMedicamentoFHS("");
-    setDosisFHS("");
-    setTimeFHS(null);
-    setDateFHS("");
-    setMedicamentoHSM("");
-    setDosisHSM("");
-    setTimeHSM(null);
-    setDateHSM("");
+    setMedicamento("");
+    setDosis("");
+    setTime(null);
+    setDate("");
   };
 
+  const medicationOptions = ["FHS", "HMG", "OTROS"];
+
   const handleConfirm = () => {
+    const randomId = Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
     const newTratamientoData = {
-      medicamentoF: medicamentoFHS,
-      dosisF: dosisFHS,
-      dateF: dateFHS,
-      timeF: timeFHS,
-      medicamentoH: medicamentoHSM,
-      dosisH: dosisHSM,
-      dateH: dateHSM,
-      timeH: timeHSM,
+      id: randomId,
+      medicamento: medicamento,
+      dosis: dosis,
+      date: date,
+      time: time,
     };
   
     setTratamiento([...tratamiento, newTratamientoData]);
@@ -60,14 +65,11 @@ const RemedioNuevo = () => {
     dispatch(newTratamiento(newTratamientoData));
   
    
-    setMedicamentoFHS("");
-    setDosisFHS("");
-    setTimeFHS(null);
-    setDateFHS("");
-    setMedicamentoHSM("");
-    setDosisHSM("");
-    setTimeHSM(null);
-    setDateHSM("");
+    setMedicamento("");
+    setDosis("");
+    setTime(null);
+    setDate("");
+    
   
     navigation.navigate("RemedioList", { tratamiento: newTratamientoData });
   };
@@ -80,16 +82,20 @@ const RemedioNuevo = () => {
             Ingrese los datos del medicamento.
           </Text>
           <Card style={styles.inputContainer}>
-            <Text style={styles.formMiniTitle}>FSH</Text>
-            <TextInput
-              placeholder="Medicamento"
-              style={styles.input}
-              autoCapitalize="none"
-              autoCorrect={false}
-              blurOnSubmit
-              onChangeText={setMedicamentoFHS}
-              value={medicamentoFHS}
-            />
+            <Text style={styles.formMiniTitle}>Tipo de Medicamento</Text>
+            
+              <Picker
+                ref={pickerRef}
+                selectedValue={medicamento}
+                onValueChange={(itemValue, itemIndex) =>
+                  setMedicamento(itemValue)
+                }>
+                <Picker.Item label="Elija un Medicamento" value="" />
+                <Picker.Item label="FHS" value="FHS" />
+                <Picker.Item label="HMG" value="HMG" />
+                <Picker.Item label="OTROS" value="OTROS" />
+              </Picker>
+
             <TextInput
               placeholder="Dosis"
               keyboardType="numeric"
@@ -97,71 +103,32 @@ const RemedioNuevo = () => {
               autoCapitalize="none"
               autoCorrect={false}
               blurOnSubmit
-              onChangeText={setDosisFHS}
-              value={dosisFHS}
+              onChangeText={setDosis}
+              value={dosis}
             />
             
             <TextInput
-              placeholder="Fecha FHS (DD/MM/AAAA)"
+              placeholder="Fecha (DD/MM/AAAA)"
               style={styles.input}
               autoCapitalize="none"
               autoCorrect={false}
               blurOnSubmit
-              onChangeText={(dateFHS) => setDateFHS(dateFHS)}
-              value={dateFHS}
+              onChangeText={(date) => setDate(date)}
+              value={date}
             />
 
             <TextInput
-              placeholder="Hora FHS (HH:MM)"
+              placeholder="Hora (HH:MM)"
               style={styles.input}
               autoCapitalize="none"
               autoCorrect={false}
               blurOnSubmit
-              onChangeText={(timeFHS) => setTimeFHS(timeFHS)}
-              value={timeFHS}
+              onChangeText={(time) => setTime(time)}
+              value={time}
             />
             
 
-            <Text style={styles.formMiniTitle}>HSM</Text>
-            <TextInput
-              placeholder="Medicamento"
-              style={styles.input}
-              autoCapitalize="none"
-              autoCorrect={false}
-              blurOnSubmit
-              onChangeText={setMedicamentoHSM}
-              value={medicamentoHSM}
-            />
-            <TextInput
-              placeholder="Dosis"
-              keyboardType="numeric"
-              style={styles.input}
-              autoCapitalize="none"
-              autoCorrect={false}
-              blurOnSubmit
-              onChangeText={setDosisHSM}
-              value={dosisHSM}
-            />
-
-            <TextInput
-              placeholder="Fecha HSM (DD/MM/AAAA)"
-              style={styles.input}
-              autoCapitalize="none"
-              autoCorrect={false}
-              blurOnSubmit
-              onChangeText={(dateHSM) => setDateHSM(dateHSM)}
-              value={dateHSM}
-            />
-
-            <TextInput
-              placeholder="Hora HSM (HH:MM)"
-              style={styles.input}
-              autoCapitalize="none"
-              autoCorrect={false}
-              blurOnSubmit
-              onChangeText={(timeHSM) => setTimeHSM(timeHSM)}
-              value={timeHSM}
-            />
+            
 
             
             <View style={styles.formButton}>

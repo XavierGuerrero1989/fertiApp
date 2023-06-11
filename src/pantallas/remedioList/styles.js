@@ -4,7 +4,8 @@ import { theme } from '../../constantes';
 export const styles = StyleSheet.create({
 
     ListContainer: {
-        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
         marginHorizontal: 15,
     },
 
@@ -30,6 +31,13 @@ export const styles = StyleSheet.create({
         fontFamily: 'Comfortaa-Bold',
         fontSize: 15,
     },
-   
+    addButton: {
+        marginTop: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    deleteCTN: {
+        alignSelf: 'flex-end',
+    }
 });
 

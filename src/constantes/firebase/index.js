@@ -1,0 +1,1 @@
+export const FIREBASE_REALTIME_DB_URL = 'https://fertiapp-5ccc1-default-rtdb.firebaseio.com/';

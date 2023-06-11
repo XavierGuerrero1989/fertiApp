@@ -1,22 +1,41 @@
 import React from "react";
-import { View, Text, FlatList } from "react-native";
-import { useSelector } from "react-redux";
+import { View, Text, FlatList, TouchableHighlight, Button } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./styles";
 import { Card } from "../../componentes";
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { theme } from "../../constantes";
+import { useNavigation } from "@react-navigation/native";
+import { deleteTratamiento } from "../../store/actions/formFiller.action";
 
 const RemedioList = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   const tratamientosActive = useSelector((state) => state.tratamientos);
+
+  const handleDelete = (id) => {
+    dispatch(deleteTratamiento(id))
+  }
+
+  const handleAdd = () => {
+    navigation.navigate("RemedioNuevo");
+  };
 
   const renderItem = ({ item }) => (
     <Card style={styles.ListContainer}>
-      <Text style={styles.ItemMedicamento}>Medicamento F: {item.medicamentoF}</Text>
-      <Text style={styles.ItemDosis}>Dosis F: {item.dosisF}</Text>
-      <Text style={styles.ItemDate}>Fecha de Inicio F: {item.dateF}</Text>
-      <Text style={styles.ItemTime}>Hora de Aplicacion F: {item.timeF}</Text>
-      <Text style={styles.ItemMedicamento}>Medicamento H: {item.medicamentoH}</Text>
-      <Text style={styles.ItemDosis}>Dosis H: {item.dosisH}</Text>
-      <Text style={styles.ItemDate}>Fecha de Inicio H: {item.dateH}</Text>
-      <Text style={styles.ItemTime}>Hora de Aplicacion H: {item.timeH}</Text>
+    <View>
+      <Text style={styles.ItemMedicamento}>Medicamento: {item.medicamento}</Text>
+      <Text style={styles.ItemDosis}>Dosis: {item.dosis}</Text>
+      <Text style={styles.ItemDate}>Fecha de Inicio: {item.date}</Text>
+      <Text style={styles.ItemTime}>Hora de Aplicacion: {item.time}</Text>
+    </View>
+      
+    <View style={styles.deleteCTN}>
+      <TouchableHighlight onPress={() => handleDelete(item.id)}>
+        <Icon name="trash-o" size={24} color="red" />
+      </TouchableHighlight>
+    </View> 
+        
     </Card>
   );
 
@@ -31,7 +50,15 @@ const RemedioList = () => {
       ) : (
         <Text>No tratamiento available</Text>
       )}
+            <View style={styles.addButton}>
+              <Button
+                title="Agregar Medicamento"
+                onPress={handleAdd}
+                color={theme.colores.oscuro}
+              />
+            </View>
     </View>
+    
   );
 };
 

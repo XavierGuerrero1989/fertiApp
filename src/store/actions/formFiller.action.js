@@ -7,7 +7,7 @@ export const newTratamiento = (tratamiento) => ({
     payload: tratamiento
   });
 
-export const deleteTratamiento = (tratamiento) => ({
+  export const deleteTratamiento = (id) => ({
     type: ELIMINAR_TRATAMIENTO,
-    tratamiento
-});
+    payload: id
+  });
