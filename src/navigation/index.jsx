@@ -1,13 +1,16 @@
-import { NavigationContainer } from "@react-navigation/native";
 
-import TabNavigator from "./tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+
+import AuthNavigator from "./auth";
+import TabsNavigator from "./tabs";
 
 const Navigation = () => {
-    return (
-        <NavigationContainer>
-            <TabNavigator/>
-        </NavigationContainer>
-    )
-}
+  const userId = useSelector((state) => state.auth.userId);
 
-export default Navigation 
+  return (
+    <NavigationContainer>{userId ? <TabsNavigator /> : <AuthNavigator />}</NavigationContainer>
+  );
+};
+
+export default Navigation;

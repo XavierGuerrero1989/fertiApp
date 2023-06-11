@@ -60,18 +60,14 @@ const RemedioNuevo = () => {
       time: time,
     };
   
-    setTratamiento([...tratamiento, newTratamientoData]);
+    dispatch(newTratamiento({ tratamiento: newTratamientoData }));
   
-    dispatch(newTratamiento(newTratamientoData));
-  
-   
     setMedicamento("");
     setDosis("");
     setTime(null);
     setDate("");
-    
   
-    navigation.navigate("RemedioList", { tratamiento: newTratamientoData });
+    navigation.navigate("RemedioList");
   };
 
   return (
