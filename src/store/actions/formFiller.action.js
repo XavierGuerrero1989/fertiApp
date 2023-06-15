@@ -1,7 +1,7 @@
 import { formTypes } from "../types/form.types";
 import { FIREBASE_REALTIME_DB_URL } from "../../constantes";
 
-const { CREAR_TRATAMIENTO, } = formTypes;
+const { CREAR_TRATAMIENTO, INSERT_MEDICAMENTO } = formTypes;
 
 
   export const newTratamiento = ( tratamiento ) => {
@@ -30,5 +30,17 @@ const { CREAR_TRATAMIENTO, } = formTypes;
     };
   };
   
-
+  export const insertMedicamento = (medicamento, dosis, date, time) => {
+    return {
+      type: INSERT_MEDICAMENTO,
+      payload: {
+        medicamento,
+        dosis,
+        date,
+        time,
+      },
+    };
+  };
+  
+  
 

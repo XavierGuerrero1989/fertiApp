@@ -1,6 +1,6 @@
 import { listTypes} from "../types";
 
-const { GET_LIST, DELETE_MEDICAMENTO } = listTypes
+const { GET_LIST, DELETE_MEDICAMENTO, SELECT_MEDICAMENTOS } = listTypes
 
 
 const initialState = {
@@ -14,6 +14,13 @@ const listReducer = (state = initialState, action) => {
                 ...state,
                 data: action.list,
             };
+
+        case SELECT_MEDICAMENTOS:
+                return {
+                    ...state,
+                    data: action.list,
+                };
+            
         case DELETE_MEDICAMENTO:
             return {
                 ...state,

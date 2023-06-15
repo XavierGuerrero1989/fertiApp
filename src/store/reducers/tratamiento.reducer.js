@@ -1,6 +1,6 @@
 import { formTypes } from "../types/form.types";
 
-const { CREAR_TRATAMIENTO, ELIMINAR_TRATAMIENTO } = formTypes;
+const { CREAR_TRATAMIENTO, INSERT_MEDICAMENTO } = formTypes;
 
 
 const initialState = [];
@@ -11,9 +11,9 @@ const tratamientoReducer = (state = initialState, action) => {
       const newTratamiento = action.payload;
       return [...state, newTratamiento];
 
-    case ELIMINAR_TRATAMIENTO:
-      const tratamientoId = action.payload;
-      return state.filter((tratamiento) => tratamiento.id !== tratamientoId);
+    case INSERT_MEDICAMENTO:
+      const newMedicamento = action.payload;
+      return [...state, newMedicamento];
 
     default:
       return state;

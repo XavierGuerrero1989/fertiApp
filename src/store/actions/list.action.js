@@ -1,7 +1,7 @@
 import { listTypes } from "../types";
 import { FIREBASE_REALTIME_DB_URL } from "../../constantes";
 
-const { GET_LIST, DELETE_MEDICAMENTO } = listTypes
+const { GET_LIST, DELETE_MEDICAMENTO, SELECT_MEDICAMENTOS } = listTypes
 
 export const getList = () => {
     return async (dispatch) => {
@@ -51,3 +51,10 @@ export const deleteMedicamento = (id) => {
         }
     };
 };
+
+
+export const selectMedicamentos = () => {
+    return {
+      type: SELECT_MEDICAMENTOS,
+    };
+  };

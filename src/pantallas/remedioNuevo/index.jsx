@@ -18,6 +18,7 @@ import RemedioList from "../remedioList";
 import { useNavigation } from "@react-navigation/native";
 import { v4 as uuidv4 } from "uuid";
 import { useRef } from "react";
+import { insertMedicamento } from "../../store/actions/formFiller.action";
 
 const RemedioNuevo = () => {
   const navigation = useNavigation();
@@ -59,6 +60,8 @@ const RemedioNuevo = () => {
       date: date,
       time: time,
     };
+
+    dispatch(insertMedicamento(medicamento, dosis, date, time));
   
     dispatch(newTratamiento({ tratamiento: newTratamientoData }));
   

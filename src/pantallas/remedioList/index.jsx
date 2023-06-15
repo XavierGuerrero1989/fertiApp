@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { theme } from "../../constantes";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { deleteMedicamento, getList } from "../../store/actions";
+import { selectMedicamentos } from "../../store/actions";
 
 const RemedioList = () => {
   const dispatch = useDispatch();
@@ -41,13 +42,19 @@ const RemedioList = () => {
 
   useFocusEffect(
     useCallback(() => {
+      dispatch(selectMedicamentos());
+    }, [dispatch])
+  );
+
+  useFocusEffect(
+    useCallback(() => {
       dispatch(getList());
     },[dispatch]),
   );
 
   return (
     <View style={styles.container}>
-      {medicamento.length > 0 ? (
+      {medicamento && medicamento.length > 0 ? (
         <FlatList
           data={medicamento}
           renderItem={renderItem}
