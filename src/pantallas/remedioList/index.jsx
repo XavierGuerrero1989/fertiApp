@@ -22,6 +22,8 @@ const RemedioList = () => {
     navigation.navigate("RemedioNuevo");
   };
 
+  
+
   const renderItem = ({ item }) => (
     <Card style={styles.ListContainer}>
     <View>
@@ -69,6 +71,7 @@ const RemedioList = () => {
                 onPress={handleAdd}
                 color={theme.colores.oscuro}
               />
+              
             </View>
     </View>
     

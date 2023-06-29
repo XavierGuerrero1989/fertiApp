@@ -3,3 +3,4 @@ export { default as RemedioNuevo } from './remedioNuevo/index';
 export { default as RemedioList } from './remedioList/index';
 export { default as InfoGeneral } from './infoGral/index';
 export { default as Auth } from './auth/index';
+export { default as CameraForm } from './cameraForm/index';

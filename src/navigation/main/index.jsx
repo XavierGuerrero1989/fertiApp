@@ -1,6 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { RemedioList, RemedioNuevo, Welcome } from "../../pantallas";
+import { RemedioList, RemedioNuevo, Welcome, CameraForm } from "../../pantallas";
 import { theme } from "../../constantes";
+import { Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,9 +30,22 @@ const MainNavigator = () => {
                     title: "Inicio Nuevo Tratamiento",
                 }) }
             />
-            <Stack.Screen name="RemedioList" component={RemedioList}
-                options={({ route }) => ({
+            <Stack.Screen
+                name="RemedioList"
+                component={RemedioList}
+                options={({ navigation }) => ({
                     title: "Medicación Activa",
+                    headerRight: () => (
+                    <TouchableOpacity onPress={() => navigation.navigate("CameraForm")}>
+                        <Ionicons name="camera" size={25} color={theme.colores.white} />
+                    </TouchableOpacity>
+                    ),
+                })}
+            />
+            
+            <Stack.Screen name="CameraForm" component={CameraForm}
+                options={({ route }) => ({
+                    title: "Ingrese Nueva Imagen",
                 }) }
             />
         </Stack.Navigator>
