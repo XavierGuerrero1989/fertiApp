@@ -38,6 +38,18 @@ export const styles = StyleSheet.create({
     },
     deleteCTN: {
         alignSelf: 'flex-end',
+    },
+
+    ItemImage: {
+        width: 200,
+        height: 200,
+        borderRadius: 5,
+    },
+
+    subTitulo: {
+        alignSelf: 'center',
+        fontFamily: 'Comfortaa-Bold',
+        fontSize: 15,
     }
 });
 

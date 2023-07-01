@@ -25,19 +25,17 @@ const CameraForm = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleConfirmCamera = async () => {
-    // Perform any necessary validation on tipe, coment, and selected image
-
-    // Prepare the form data to be uploaded
+    
     const formData = {
       tipe: tipe,
       coment: coment,
       imageUrl: selectedImage,
     };
 
-    // Dispatch the form data to be uploaded to Firebase Realtime Database
+
     dispatch(uploadFormData(formData));
 
-    // Navigate to the RemedioList page or perform any other necessary action
+    
     navigation.navigate("RemedioList");
   };
 
@@ -59,8 +57,8 @@ const CameraForm = () => {
               onValueChange={(itemValue, itemIndex) => setTipe(itemValue)}
             >
               <Picker.Item label="Elija una Opcion" value="" />
-              <Picker.Item label="Receta" value="FHS" />
-              <Picker.Item label="Foto de Remedio" value="HMG" />
+              <Picker.Item label="Receta" value="Receta" />
+              <Picker.Item label="Foto de Remedio" value="Foto de Remedio" />
               <Picker.Item label="OTROS" value="OTROS" />
             </Picker>
 
