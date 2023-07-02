@@ -3,10 +3,16 @@ import { theme } from '../../constantes';
 
 export const styles = StyleSheet.create({
 
+   container: {
+    flex:1,
+    overflow: 'scroll',
+   },
+
     ListContainer: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         marginHorizontal: 15,
+        
     },
 
     ItemTitle: {
